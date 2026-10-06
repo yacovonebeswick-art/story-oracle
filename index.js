@@ -285,7 +285,21 @@ const NOVEL_OUTLINE_SECTION = `- 【默认写作形态：网络小说，不是�
   用户在主聊天只发「继续」时，由【当前拍】的注入引导正文；参谋侧若被问进度，对照最近正文判断当前拍是否已兑现，再建议「完成当前拍进下一章」或「还差哪一步」。不要在参谋房里直接代写整章正文。
 
 - 【与单拍方案的分工不变】
-  只想试探下一个小走向 → <StoryPlan>；要一整段按章推进的小说结构 → <StorySequence>。一次回复只出一种。`;
+  只想试探下一个小走向 → <StoryPlan>；要一整段按章推进的小说结构 → <StorySequence>。一次回复只出一种。
+
+- 【亲密/性情节（关系与情境合理时必须纳入规划，不可整卷回避）】
+  · 当角色关系、场景与动机已铺到临界点时，大纲与序列**应当**安排相应的亲密或性事件拍，不得一律跳过。
+  · 「性事件」不限于插入式性交：可依人物与情境选择亲吻升温、爱抚、手淫/手交、口交、性交、肛交、道具、轻度至约定的 SM、权力差/物化幻想（如肉便器设定）等——以卡面、世界书与已有剧情为据，**看情况选型**，不要机械每章换一种。
+  · 分量重的亲密戏按原版序列要求拆拍：**事前（氛围/心理/前戏）→ 事件本身（可多拍、可中断再续）→ 事后（余韵、关系变化、清理与面对彼此）**；禁止一拍从宽衣到结束带过。
+  · 生理与节奏写实：不应期、疲惫、未必每次顺利、各方感受是否被照顾——起草 goal/seed/offstage 时纳入，而非只写「发生了」。
+
+- 【防全知（适用于全部角色，含主角、配角、反派、路人）+ 主角会吃小瘪】
+  · **每一个角色**都不是全知者：只知道自己亲眼所见、亲耳所闻、亲手读到、或被可信对象明确告知的信息。禁止任何角色凭直觉、心悸、第六感、旁白剧透获知自己不在场时发生的事。
+  · 关键情报进入**任一角色**头脑，必须在正文或章纲里有**消息来源**（谁说的、在哪看到的、哪份文件/监听/误传）。没有来源 = 该角色不知道。
+  · 写对白与反应前自检：这句话/这个判断，他是怎么知道的？说不清来源就删掉或改为合理误判。
+  · NPC、对手、配角的阴谋可以**部分得逞**：允许主角被骗、被摆一道、丢面子、吃亏、计划落空——但是**只吃小瘪**（可逆、有限代价：尴尬、短暂被动、小损失、误判一拍），不要无铺垫地让主角彻底崩盘或永久废掉（除非用户/大纲明确要求重创）。
+  · 规划序列时：至少有部分拍体现「信息差对主角不利」或「对手布局暂时生效」；offstage 可写对手得逞的一环，正文侧相关知情者与不知情者严格分开。
+  · **可增补 NPC**：大纲与序列在剧情需要时，可合理引入卡面/世界书未写明的次要人物（工友、路人、线人、对手棋子等），并写清其立场与信息边界；新 NPC 同样遵守防全知，且动机须服务主线或阴谋网。`;
 
 // 工坊三区块的格式契约——访谈与锻造两个提示词共用这一份，绝不各写一份。
 // 逐字对齐 T1 解析器（parseCharBrief/parseCharDraft/parseDraftPatch）：头部键名、围栏标签（desc/content/replace）、
@@ -320,6 +334,18 @@ function buildOutlineGenInstruction(scaleWan) {
    - 列：章序|章标题|场景/时间|本章事件（一句话）|阻力/转折|章末钩子|转场与时间跨度说明
    - 字数紧张时事件列可极简（一句），但【章不可省略、不可只写第一卷】。
    - 时间跨度大必须在转场列交代期间发生了什么。
+4) 【亲密/性情节硬约束——关系与场景合理时不得整卷回避】
+   - 在卷表与章纲中，于关系升温、私密空间、权力差或角色动机自然到达的节点，**明确标出**亲密或性相关章（可在「本章事件」用一句话点明类型与结果）。
+   - 类型按情境选择，不限于做爱：前戏、手交、口交、性交、肛交、道具、SM、肉便器/调教类等均可，但必须服务人物与主线，禁止无动机硬插。
+   - 重场次在章序上拆成「前戏/氛围 → 正戏（可跨章）→ 事后余韵」相邻章，不要单章从开始写到结束。
+   - 若角色卡/世界书明显偏情色或已有身体关系伏笔，大纲中应有相应密度；若设定清淡，则克制但在真正合理处仍可点到。
+5) 【防全知（全员）与吃瘪】
+   - **所有角色**认知有边界：章纲里凡「某人得知某事」，须能对应可见/可听/可被转述的来源，禁止任何角色凭空全知。
+   - 对手/NPC 阴谋应有**阶段性得逞**的章（主角吃小瘪、误判、被动），再逐步反转或加深；不要写成主角永远先手、永远识破。
+   - 「小瘪」= 有限可逆代价（难堪、短暂失控、小损失），非无故毁灭性打击。
+6) 【可按需增加 NPC】
+   - 若剧情需要推动信息差、阴谋、群像或职场/旅途生态，可在大纲中**合理增补**原卡未写明的次要 NPC（姓名可简、职责与立场要清）。
+   - 新 NPC 须有存在理由与信息边界，避免工具人全知；重要棋子可在 highlight 或卷目标中点名。
 
 只输出一个 <NovelOutline> 区块（可先写一两句总述），不要输出 <StoryPlan>/<StorySequence>。全程简体中文。
 
@@ -7677,6 +7703,9 @@ function buildDirectiveRaw(plan) {
         '- 世界在转：可在合适处切换视角写 {{user}} 不在场的人物与势力（密谈、部署、反应），但须服务本章结果或为后章埋线，禁止纯热闹闲笔',
         '- 不得替{{user}}行动、发言或做出决定',
         '- {{user}}的行动永远优先：若其选择偏离此方向，跟随用户，绝不强行拉回',
+        '- 【防全知·全员】每个角色都只知道自己看见、听见、读到或被当场告知的信息；禁止用直觉/心悸/第六感/旁白把幕后真相灌进任何角色的认知。关键信息必须有来源。',
+        '- 【会吃小瘪】{{user}}是普通人：可被骗、被算计、计划落空、暂时被动；NPC 阴谋可以阶段性得逞，但代价保持为小瘪（可逆、有限），除非用户或大纲明确要求更重后果。',
+        '- 切换任一角色视角时，该角色不得知道其不在场、未获知的信息；配角与反派同样不是全知。',
     );
     // depiction（仅弧线拍传 depiction:true；单拍 layer-1 路径不传 → 与 live 逐字节一致）：授权把【幕后/离屏后果】
     // 演进正文。否则玩家不在场处发生的 goal（别处的会议 / 决定）永不进正文，✓ 核验逐字引不出证据 → 永远 unsure。
@@ -8413,6 +8442,7 @@ function seqAdvance(seq, now) {
         return { ended: true };
     }
     b.status = 'done';
+    try { syncOutlineProgressFromChat(); } catch (e) { /* ignore */ }
     for (let i = seq.cursor + 1; i < seq.beats.length; i++) {
         if (seq.beats[i].status === 'pending') {
             seq.beats[i].status = 'active';
@@ -8780,6 +8810,7 @@ function onChatChanged() {
     if (win) {
         const panel = win.querySelector('#so-outline-panel');
         if (panel) { panel.style.display = 'none'; panel.innerHTML = ''; }
+        try { syncOutlineProgressFromChat(); } catch (e) { /* ignore */ }
         refreshOutlineUI();
     }
     // ✨/📋 1.77.0：回到这个聊天时，把切走那会儿暂存下来的校正 / 模板成品落地。放在【最后】——记录要落进
@@ -19756,10 +19787,20 @@ function buildWindow() {
                     <div class="so-adv-outline-row" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0;">
                         <button type="button" class="so-plan-mini so-plan-done" id="so-outline-gen" title="按所选体量静默生成大纲（不写入参谋聊天）"><i class="fa-solid fa-list-ol"></i> 生成大纲</button>
                         <button type="button" class="so-plan-mini" id="so-outline-view" title="展开 / 收起大纲表" style="display:none">查看大纲</button>
+                        <button type="button" class="so-plan-mini" id="so-outline-edit-btn" title="直接改大纲原文，保存后立即生效" style="display:none">编辑原文</button>
+                        <button type="button" class="so-plan-mini" id="so-outline-chat" title="在参谋对话里说明要改哪里，模型会输出更新后的大纲并自动保存" style="display:none">参谋里改</button>
                         <button type="button" class="so-plan-mini so-plan-drop" id="so-outline-clear" title="清除本聊天的大纲" style="display:none">清除大纲</button>
                         <span class="so-hint" id="so-outline-status" style="margin:0;"></span>
                     </div>
-                    <div id="so-outline-panel" style="display:none;margin:4px 0 8px;padding:8px;border:1px solid rgba(255,255,255,.12);border-radius:8px;max-height:min(50vh,420px);overflow:auto;font-size:12px;line-height:1.45;opacity:.95;"></div>
+                    <div class="so-hint">生成后可「编辑原文」手改，或点「参谋里改」用对话调整；参谋回复若带 <NovelOutline> 会自动覆盖保存。</div>
+                    <div id="so-outline-panel" style="display:none;margin:4px 0 8px;padding:8px;border:1px solid rgba(255,255,255,.12);border-radius:8px;max-height:min(62vh,560px);overflow:auto;"></div>
+                    <div id="so-outline-editwrap" style="display:none;margin:4px 0 8px;">
+                        <textarea id="so-outline-edit" spellcheck="false" placeholder="在此粘贴或修改 <NovelOutline> 全文 / volumes 表……"></textarea>
+                        <div class="so-plan-actions" style="margin-top:6px;">
+                            <button type="button" class="so-plan-mini so-plan-done" id="so-outline-edit-save">保存修改</button>
+                            <button type="button" class="so-plan-mini" id="so-outline-edit-cancel">取消</button>
+                        </div>
+                    </div>
                 </div>
             </details>
             ${ENABLE_WORLD_SIM ? `
@@ -20098,9 +20139,75 @@ function bindControls() {
         if (!(await uiConfirm('清除本聊天已保存的小说大纲？不会影响已在引导的序列/方案。'))) return;
         setOutline(null);
         const panel = win.querySelector('#so-outline-panel');
-        if (panel) { panel.style.display = 'none'; panel.textContent = ''; }
+        if (panel) { panel.style.display = 'none'; panel.innerHTML = ''; }
+        const ew = win.querySelector('#so-outline-editwrap');
+        if (ew) ew.style.display = 'none';
         refreshOutlineUI();
         addSystemNote('已清除大纲。');
+    });
+    const outlineEditBtn = win.querySelector('#so-outline-edit-btn');
+    if (outlineEditBtn) outlineEditBtn.addEventListener('click', () => {
+        const o = getOutline();
+        const wrap = win.querySelector('#so-outline-editwrap');
+        const ta = win.querySelector('#so-outline-edit');
+        const panel = win.querySelector('#so-outline-panel');
+        if (!o || !wrap || !ta) return;
+        ta.value = o.raw || outlineToPlain(o);
+        wrap.style.display = '';
+        if (panel) panel.style.display = 'none';
+    });
+    const outlineEditSave = win.querySelector('#so-outline-edit-save');
+    if (outlineEditSave) outlineEditSave.addEventListener('click', () => {
+        const ta = win.querySelector('#so-outline-edit');
+        const wrap = win.querySelector('#so-outline-editwrap');
+        if (!ta) return;
+        const raw = ta.value.trim();
+        let ol = parseNovelOutline(raw.includes('<NovelOutline') ? raw : ('<NovelOutline>\n' + raw + '\n</NovelOutline>'));
+        if (!ol) {
+            ol = { theme: '', protagonist: '', conflict: '', ending: '', highlight: '', volumesText: raw, totalChapters: 0, raw, createdAt: Date.now() };
+            const prev = getOutline();
+            if (prev) {
+                ol.theme = prev.theme; ol.protagonist = prev.protagonist; ol.conflict = prev.conflict;
+                ol.ending = prev.ending; ol.highlight = prev.highlight; ol.scale = prev.scale;
+            }
+        }
+        if (setOutline(ol)) {
+            if (wrap) wrap.style.display = 'none';
+            refreshOutlineUI();
+            const panel = win.querySelector('#so-outline-panel');
+            if (panel) {
+                ensureStoryOracleNovelStyle();
+                panel.style.display = '';
+                panel.innerHTML = renderOutlinePanelHtml(ol);
+            }
+            window.toastr && window.toastr.success && window.toastr.success('大纲已更新', '故事神谕');
+        }
+    });
+    const outlineEditCancel = win.querySelector('#so-outline-edit-cancel');
+    if (outlineEditCancel) outlineEditCancel.addEventListener('click', () => {
+        const wrap = win.querySelector('#so-outline-editwrap');
+        if (wrap) wrap.style.display = 'none';
+        const o = getOutline();
+        const panel = win.querySelector('#so-outline-panel');
+        if (panel && o) {
+            panel.style.display = '';
+            panel.innerHTML = renderOutlinePanelHtml(o);
+        }
+    });
+    const outlineChatBtn = win.querySelector('#so-outline-chat');
+    if (outlineChatBtn) outlineChatBtn.addEventListener('click', async () => {
+        if (!advisorMode) {
+            if (typeof toggleAdvisor === 'function') await toggleAdvisor();
+            if (!advisorMode) return;
+        }
+        if (inputEl) {
+            inputEl.value = '请根据我下面的要求修改已保存的小说大纲，改完后输出完整的 <NovelOutline> 区块（我会自动保存覆盖）：\n';
+            try { autoGrowInput(); } catch (e) { /* ignore */ }
+            inputEl.focus();
+        }
+        addSystemNote('已进入大纲修订：直接说明要改的卷/章/情节。神谕回复里若带 <NovelOutline>，会自动覆盖当前大纲并刷新表格。');
+        const collapse = win.querySelector('#so-outline-collapse');
+        if (collapse) collapse.open = true;
     });
     ensureStoryOracleNovelStyle();
     refreshOutlineUI();
@@ -22326,9 +22433,12 @@ async function toggleLorebook() {
 
 // 主聊天章节大标题 + 大纲表格面板样式（一次性注入）。
 function ensureStoryOracleNovelStyle() {
-    if (document.getElementById('so-novel-style')) return;
-    const st = document.createElement('style');
-    st.id = 'so-novel-style';
+    let st = document.getElementById('so-novel-style');
+    if (!st) {
+        st = document.createElement('style');
+        st.id = 'so-novel-style';
+        document.head.appendChild(st);
+    }
     st.textContent = `
 /* 主聊天：网文章节标题放大居中（配合正文首行 # 第N章 …） */
 #chat .mes_text h1,
@@ -22344,33 +22454,104 @@ function ensureStoryOracleNovelStyle() {
 #chat .mes_text h1:first-child,
 #chat .mes .mes_text h1:first-child { margin-top: 0.25em !important; }
 /* 神谕窗口内大纲表格 */
-#so-outline-panel { font-size: 12.5px; line-height: 1.5; max-height: min(50vh, 420px); }
-#so-outline-collapse .so-mode-collapse-body { gap: 6px; }
-#so-outline-panel .so-ol-meta { margin: 0 0 8px; opacity: .9; }
-#so-outline-panel .so-ol-meta div { margin: 2px 0; }
+#so-outline-panel {
+  /* 与上方「主题/主角」元信息同一套易读正文字体，避免等宽挤在一起 */
+  font-family: var(--mainFontFamily, system-ui, -apple-system, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif);
+  font-size: 14px; line-height: 1.7;
+  max-height: min(62vh, 560px);
+  padding: 12px 14px !important;
+  letter-spacing: 0.02em;
+}
+#so-outline-collapse .so-mode-collapse-body { gap: 8px; }
+#so-outline-panel .so-ol-meta {
+  margin: 0 0 14px; padding: 12px 14px;
+  border-radius: 10px;
+  background: rgba(128,128,128,.08);
+  border: 1px solid var(--SmartThemeBorderColor, rgba(128,128,128,.22));
+  font-size: 14px; line-height: 1.75;
+}
+#so-outline-panel .so-ol-meta div { margin: 8px 0; }
+#so-outline-panel .so-ol-meta b {
+  opacity: .72; margin-right: 8px; font-weight: 600;
+  font-size: 13px;
+}
 #so-outline-panel table.so-ol-table {
-  width: 100%; border-collapse: collapse; margin: 8px 0 12px;
-  font-size: 12px;
+  width: 100%; border-collapse: separate; border-spacing: 0;
+  margin: 8px 0 14px; font-size: 13px;
+  border: 1px solid var(--SmartThemeBorderColor, rgba(128,128,128,.3));
+  border-radius: 10px; overflow: hidden;
 }
 #so-outline-panel table.so-ol-table th,
 #so-outline-panel table.so-ol-table td {
-  border: 1px solid var(--SmartThemeBorderColor, rgba(128,128,128,.35));
-  padding: 5px 7px; text-align: left; vertical-align: top;
+  border-bottom: 1px solid var(--SmartThemeBorderColor, rgba(128,128,128,.22));
+  padding: 10px 12px; text-align: left; vertical-align: top;
+  line-height: 1.55; word-break: break-word;
 }
+#so-outline-panel table.so-ol-table tr:last-child td { border-bottom: none; }
 #so-outline-panel table.so-ol-table th {
-  font-weight: 600; opacity: .85;
-  background: rgba(128,128,128,.12);
-  white-space: nowrap;
+  font-weight: 600; opacity: .9;
+  background: rgba(128,128,128,.14);
+  white-space: nowrap; font-size: 12.5px;
 }
 #so-outline-panel .so-ol-vol-title {
-  font-weight: 700; margin: 10px 0 4px; font-size: 13px;
+  font-weight: 700; margin: 16px 0 8px; font-size: 14.5px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--SmartThemeBorderColor, rgba(128,128,128,.3));
+}
+/* 章卡片：窄侧栏比多列表格更易读 */
+#so-outline-panel .so-ol-chapters { display: flex; flex-direction: column; gap: 10px; margin: 8px 0 16px; }
+#so-outline-panel .so-ol-chap {
+  border: 1px solid var(--SmartThemeBorderColor, rgba(128,128,128,.28));
+  border-radius: 10px; padding: 12px 14px;
+  background: rgba(128,128,128,.05);
+  font-size: 14px; line-height: 1.7;
+}
+#so-outline-panel .so-ol-chap-head {
+  font-weight: 650; font-size: 14.5px; margin-bottom: 8px;
+  display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap;
+  line-height: 1.5;
+}
+#so-outline-panel details.so-ol-done {
+  border: 1px solid var(--SmartThemeBorderColor, rgba(128,128,128,.22));
+  border-radius: 10px; padding: 0;
+  background: rgba(128,128,128,.04);
+  margin: 0;
+}
+#so-outline-panel details.so-ol-done > summary {
+  cursor: pointer; list-style: none;
+  padding: 10px 14px; font-size: 13.5px; line-height: 1.55;
+  opacity: .78; user-select: none;
+}
+#so-outline-panel details.so-ol-done > summary::-webkit-details-marker { display: none; }
+#so-outline-panel details.so-ol-done > summary::before {
+  content: '▸ '; opacity: .6;
+}
+#so-outline-panel details.so-ol-done[open] > summary::before { content: '▾ '; }
+#so-outline-panel details.so-ol-done .so-ol-done-body {
+  padding: 0 10px 12px; display: flex; flex-direction: column; gap: 10px;
+}
+#so-outline-panel .so-ol-chap.is-done { opacity: .82; }
+#so-outline-panel .so-ol-chap-no {
+  display: inline-block; min-width: 1.6em;
+  color: var(--SmartThemeQuoteColor, #8ab4f8); opacity: .95;
+}
+#so-outline-panel .so-ol-row {
+  display: grid; grid-template-columns: 4.5em 1fr;
+  gap: 4px 10px; margin: 4px 0; font-size: 13px; line-height: 1.55;
+}
+#so-outline-panel .so-ol-row .k { opacity: .65; font-weight: 600; font-size: 12px; padding-top: 1px; }
+#so-outline-panel .so-ol-row .v { word-break: break-word; }
+#so-outline-edit {
+  width: 100%; min-height: 180px; max-height: 40vh;
+  font-size: 13px; line-height: 1.55; padding: 10px;
+  border-radius: 8px; resize: vertical;
+  box-sizing: border-box;
 }
 #so-outline-progress-fill {
   background: linear-gradient(90deg,#5b8def,#7c5cbf);
 }
 `;
-    document.head.appendChild(st);
-}
+    }
 
 // 面板样式（一次性注入）：账本是「读」的东西，字号比设置栏大一档；表格 / 分组用主题边框色，明暗主题都能看。
 function ensureWorldSimStyle() {
@@ -27510,18 +27691,20 @@ function renderOutlinePanelHtml(o) {
     const esc = (s) => String(s == null ? '' : s)
         .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     const meta = [];
-    if (o.theme) meta.push('<div><b>主题</b>　' + esc(o.theme) + '</div>');
-    if (o.protagonist) meta.push('<div><b>主角</b>　' + esc(o.protagonist) + '</div>');
-    if (o.conflict) meta.push('<div><b>冲突</b>　' + esc(o.conflict) + '</div>');
-    if (o.ending) meta.push('<div><b>结局</b>　' + esc(o.ending) + '</div>');
-    if (o.highlight) meta.push('<div><b>亮点</b>　' + esc(o.highlight) + '</div>');
-    if (o.totalChapters) meta.push('<div><b>章纲节点</b>　约 ' + esc(o.totalChapters) + ' 章</div>');
-    let body = o.volumesText || o.raw || '';
-    // 抽取 |...| 表格块
+    if (o.theme) meta.push('<div><b>主题</b>' + esc(o.theme) + '</div>');
+    if (o.protagonist) meta.push('<div><b>主角</b>' + esc(o.protagonist) + '</div>');
+    if (o.conflict) meta.push('<div><b>冲突</b>' + esc(o.conflict) + '</div>');
+    if (o.ending) meta.push('<div><b>结局</b>' + esc(o.ending) + '</div>');
+    if (o.highlight) meta.push('<div><b>亮点</b>' + esc(o.highlight) + '</div>');
+    if (o.totalChapters) meta.push('<div><b>章纲</b>约 ' + esc(o.totalChapters) + ' 章'
+        + (o.scale ? ' · 体量约 ' + esc(o.scale) + ' 万字' : '') + '</div>');
+    const body = String(o.volumesText || o.raw || '');
+    const lines = body.split(/\n/);
     const blocks = [];
-    const lines = String(body).split(/\n/);
     let i = 0;
     let preface = [];
+    const isSep = (r) => /^\s*\|\s*[-:|\s]+\|/.test(r);
+    const parseRow = (r) => r.replace(/^\s*\|/, '').replace(/\|\s*$/, '').split('|').map((c) => c.trim());
     while (i < lines.length) {
         const line = lines[i];
         if (/^\s*\|/.test(line)) {
@@ -27530,28 +27713,67 @@ function renderOutlinePanelHtml(o) {
                 tableLines.push(lines[i]);
                 i++;
             }
-            // 跳过分隔行 |---|
-            const rows = tableLines.filter((r) => !/^\s*\|?[\s:-]+\|/.test(r.replace(/[\w\u4e00-\u9fff]+/g, 'x')) || !/^\s*\|\s*[-:]+/.test(r));
-            const parsed = tableLines
-                .filter((r) => !/^\s*\|\s*[-:|\s]+\|/.test(r))
-                .map((r) => r.replace(/^\s*\|/, '').replace(/\|\s*$/, '').split('|').map((c) => c.trim()));
-            if (parsed.length) {
-                const head = parsed[0];
-                const data = parsed.slice(1);
-                let html = '<table class="so-ol-table"><thead><tr>' +
-                    head.map((h) => '<th>' + esc(h) + '</th>').join('') +
-                    '</tr></thead><tbody>' +
-                    data.map((row) => '<tr>' + row.map((c) => '<td>' + esc(c) + '</td>').join('') + '</tr>').join('') +
-                    '</tbody></table>';
-                // 表前最近一行非空非表文字当小标题
-                let title = '';
-                while (preface.length) {
-                    const t = preface.pop();
-                    if (String(t).trim()) { title = String(t).trim(); break; }
+            const parsed = tableLines.filter((r) => !isSep(r)).map(parseRow).filter((row) => row.some(Boolean));
+            if (!parsed.length) continue;
+            const head = parsed[0];
+            const data = parsed.slice(1);
+            // 表前标题
+            let title = '';
+            while (preface.length) {
+                const t = preface.pop();
+                if (String(t).trim()) { title = String(t).trim(); break; }
+            }
+            preface = [];
+            if (title) blocks.push('<div class="so-ol-vol-title">' + esc(title) + '</div>');
+            // 章纲表（表头含「章」）→ 卡片；否则保留宽松表格
+            const headJoin = head.join('');
+            const looksChapter = /章/.test(headJoin) && data.length > 0 && data.every((row) => row.length >= 2);
+            if (looksChapter) {
+                const progress = Math.max(
+                    Number(o.progressChapter) || 0,
+                    (typeof scanMainChatMaxChapter === 'function') ? (scanMainChatMaxChapter() || 0) : 0
+                );
+                const mkChap = (row, doneCls) => {
+                    const no = row[0] || '';
+                    const name = row[1] || '';
+                    let h = '<div class="so-ol-chap' + (doneCls ? ' is-done' : '') + '"><div class="so-ol-chap-head">'
+                        + '<span class="so-ol-chap-no">' + esc(no) + '</span>'
+                        + '<span>' + esc(name) + '</span></div>';
+                    for (let c = 2; c < head.length; c++) {
+                        const label = head[c] || '';
+                        const val = row[c] || '';
+                        if (!String(val).trim()) continue;
+                        h += '<div class="so-ol-row"><span class="k">' + esc(label) + '</span><span class="v">'
+                            + esc(val) + '</span></div>';
+                    }
+                    return h + '</div>';
+                };
+                const past = [];
+                const future = [];
+                for (const row of data) {
+                    const n = parseInt(String(row[0] || '').replace(/\D/g, ''), 10) || 0;
+                    if (progress > 0 && n > 0 && n <= progress) past.push(row);
+                    else future.push(row);
                 }
-                if (title) blocks.push('<div class="so-ol-vol-title">' + esc(title) + '</div>');
+                let html = '<div class="so-ol-chapters">';
+                if (past.length) {
+                    const names = past.slice(0, 4).map((r) => (r[0] || '') + (r[1] ? ' ' + r[1] : '')).join(' · ');
+                    const more = past.length > 4 ? ' 等' : '';
+                    html += '<details class="so-ol-done"><summary>已发生 · ' + past.length + ' 章（' + esc(names + more)
+                        + '）· 点击展开</summary><div class="so-ol-done-body">';
+                    for (const row of past) html += mkChap(row, true);
+                    html += '</div></details>';
+                }
+                for (const row of future) html += mkChap(row, false);
+                html += '</div>';
                 blocks.push(html);
-                preface = [];
+            } else {
+                let html = '<table class="so-ol-table"><thead><tr>'
+                    + head.map((h) => '<th>' + esc(h) + '</th>').join('')
+                    + '</tr></thead><tbody>'
+                    + data.map((row) => '<tr>' + head.map((_, c) => '<td>' + esc(row[c] || '') + '</td>').join('') + '</tr>').join('')
+                    + '</tbody></table>';
+                blocks.push(html);
             }
             continue;
         }
@@ -27562,7 +27784,7 @@ function renderOutlinePanelHtml(o) {
     let html = '';
     if (meta.length) html += '<div class="so-ol-meta">' + meta.join('') + '</div>';
     if (blocks.length) html += blocks.join('');
-    else if (rest || body) html += '<pre style="white-space:pre-wrap;margin:0;font-size:12px;">' + esc(rest || body) + '</pre>';
+    else if (rest || body) html += '<pre style="white-space:pre-wrap;margin:0;font-size:13.5px;line-height:1.65;">' + esc(rest || body) + '</pre>';
     return html;
 }
 
@@ -27615,26 +27837,93 @@ function parseNovelOutline(text) {
     return o;
 }
 
+// 从主聊天正文里扫「第N章」标题，取最大章号（= 正文已写到大纲的大致位置）。
+function scanMainChatMaxChapter() {
+    try {
+        const ctx = getCtx();
+        const chat = (ctx && Array.isArray(ctx.chat)) ? ctx.chat : [];
+        let maxN = 0;
+        // 只扫最近若干条，避免超长史拖慢 UI；章号单调递增时末段足够。
+        const start = Math.max(0, chat.length - 80);
+        for (let i = start; i < chat.length; i++) {
+            const m = chat[i];
+            if (!m || m.is_user) continue;
+            const t = String(m.mes || m.message || '');
+            // # 第3章 xxx  / 第3章 · 标题  / **第3章**
+            const re = /(?:^|\n)\s*#{0,3}\s*第\s*(\d{1,4})\s*章/g;
+            let mm;
+            while ((mm = re.exec(t))) {
+                const n = parseInt(mm[1], 10);
+                if (n > maxN) maxN = n;
+            }
+        }
+        return maxN;
+    } catch (e) {
+        return 0;
+    }
+}
+
+// 从大纲 volumes 文本里取第 n 章的短标题（若有）。
+function outlineChapterTitleAt(o, n) {
+    if (!o || !n) return '';
+    const body = String(o.volumesText || o.raw || '');
+    const lines = body.split(/\n/);
+    for (const line of lines) {
+        if (!/^\s*\|/.test(line)) continue;
+        if (/^\s*\|\s*[-:|\s]+\|/.test(line)) continue;
+        const cells = line.replace(/^\s*\|/, '').replace(/\|\s*$/, '').split('|').map((c) => c.trim());
+        if (cells[0] && String(parseInt(cells[0], 10)) === String(n)) {
+            return cells[1] || '';
+        }
+        const joined = cells.join(' ');
+        const m = joined.match(/第\s*(\d+)\s*章\s*[·:\s]*(.*)$/);
+        if (m && parseInt(m[1], 10) === n) return (m[2] || cells[1] || '').trim();
+    }
+    return '';
+}
+
+// 把主聊天扫到的最大章号写回大纲元数据（只升不降），便于换设备/刷新后仍显示。
+function syncOutlineProgressFromChat() {
+    const o = getOutline();
+    if (!o) return;
+    const n = scanMainChatMaxChapter();
+    if (n > 0 && n > (Number(o.progressChapter) || 0)) {
+        o.progressChapter = n;
+        setOutline(o);
+    }
+}
+
+/** 正文相对【整份小说大纲】的进度（不是当前序列 1/10 拍）。 */
 function outlineProgressInfo() {
     const o = getOutline();
     if (!o) return null;
-    const seq = ENABLE_PLAN_SEQ ? getSeq() : null;
-    let done = 0, total = 0, label = '大纲';
-    if (seq && Array.isArray(seq.beats) && seq.beats.length) {
-        total = seq.beats.length;
-        done = seq.beats.filter((b) => b && b.status === 'done').length;
-        // cursor-style fallback
-        if (!done && typeof seq.cursor === 'number') done = Math.max(0, seq.cursor);
-        const b = (typeof seqActiveBeat === 'function') ? seqActiveBeat(seq) : null;
-        label = seq.title ? `大纲 · ${seq.title}` : '大纲 · 序列引导';
-        if (b) label += ` · ${b.title || b.goal || ''}`;
-    } else {
-        // 尚无序列：用大纲章纲条数作分母，分子为 0
-        total = o.totalChapters || 0;
-        done = 0;
-        label = '大纲已就绪（尚未开始章引导）';
+    const total = o.totalChapters || 0;
+    // 分子优先级：主聊天已出现的最大章号 > 大纲上记录的 progressChapter > 序列已完成拍数（弱参考）
+    let done = 0;
+    const fromChat = scanMainChatMaxChapter();
+    const stored = Number(o.progressChapter) || 0;
+    done = Math.max(fromChat, stored);
+    if (!done && ENABLE_PLAN_SEQ) {
+        const seq = getSeq();
+        if (seq && Array.isArray(seq.beats) && seq.beats.length) {
+            // 无正文标题时：用「已完成拍」作弱进度，但仍以大纲总章为分母
+            const seqDone = seq.beats.filter((b) => b && b.status === 'done').length;
+            if (seqDone) done = Math.min(total || seqDone, seqDone);
+        }
     }
+    if (total > 0) done = Math.min(done, total);
     const pct = total > 0 ? Math.min(100, Math.round((done / total) * 100)) : 0;
+    let label = '大纲总进度';
+    if (done > 0) {
+        const title = outlineChapterTitleAt(o, done);
+        label = title
+            ? `大纲总进度 · 正文约至第 ${done} 章「${title}」`
+            : `大纲总进度 · 正文约至第 ${done} 章`;
+    } else if (total > 0) {
+        label = '大纲总进度 · 正文尚未写到带章标题的章节';
+    } else {
+        label = '大纲已就绪（章纲数量未知）';
+    }
     return { done, total, pct, label, hasOutline: true };
 }
 
@@ -27649,11 +27938,15 @@ function refreshOutlineUI() {
         if (!o) status.textContent = '';
         else {
             const n = o.totalChapters || 0;
-            status.textContent = n ? `已保存大纲（约 ${n} 章纲节点）` : '已保存大纲';
+            status.textContent = n ? `已保存大纲（约 ${n} 章）` : '已保存大纲';
         }
     }
     if (viewBtn) viewBtn.style.display = o ? '' : 'none';
     if (clearBtn) clearBtn.style.display = o ? '' : 'none';
+    const editBtn = win.querySelector('#so-outline-edit-btn');
+    const chatBtn = win.querySelector('#so-outline-chat');
+    if (editBtn) editBtn.style.display = o ? '' : 'none';
+    if (chatBtn) chatBtn.style.display = o ? '' : 'none';
     if (panel && panel.style.display !== 'none' && o) {
         ensureStoryOracleNovelStyle();
         panel.innerHTML = renderOutlinePanelHtml(o);
@@ -27675,8 +27968,8 @@ function refreshOutlineUI() {
                 box.style.display = '';
                 fill.style.width = info.pct + '%';
                 txt.textContent = info.total
-                    ? `${info.done} / ${info.total}（${info.pct}%）`
-                    : '待拆章纲引导';
+                    ? `${info.done} / ${info.total} 章（${info.pct}%）`
+                    : (info.done ? `正文约至第 ${info.done} 章` : '章纲总数未知');
                 if (lab) lab.textContent = info.label;
             }
         }
@@ -27808,7 +28101,8 @@ function buildAdvisorPrompt(ctx, s) {
     const savedOutline = getOutline();
     if (savedOutline && !outlineGenPending) {
         parts.push('=== 当前已保存的小说大纲（引导拍 / 序列必须对齐此大纲，不得另起无关主线）===\n'
-            + (savedOutline.raw || outlineToPlain(savedOutline)));
+            + (savedOutline.raw || outlineToPlain(savedOutline))
+            + '\n\n【修订大纲】用户若要求增删改卷/章/情节/体量，请先简短确认改动点，再在回复末尾输出**完整**更新后的 <NovelOutline> 区块（含五要素头部与 volumes 表）。系统会自动保存覆盖旧大纲。只改局部时也请输出完整区块，勿只给补丁碎片。纯讨论不改大纲时不要输出该区块。');
     }
 
     // 说话人格（仅当用户主动选了某个人格时）：参谋指令之上叠语气皮肤，附带
@@ -28867,7 +29161,15 @@ async function generateReply() {
                     if (ol) {
                         if (setOutline(ol)) {
                             refreshOutlineUI();
-                            addSystemNote('大纲已保存到本聊天。可点参谋设置里的「查看大纲」。接下来可说「按这份大纲拆成引导序列」，或让我直接输出 <StorySequence>——每一拍应对齐大纲中的章/单元。');
+                            const panel = win && win.querySelector('#so-outline-panel');
+                            const collapse = win && win.querySelector('#so-outline-collapse');
+                            if (collapse) collapse.open = true;
+                            if (panel) {
+                                ensureStoryOracleNovelStyle();
+                                panel.style.display = '';
+                                panel.innerHTML = renderOutlinePanelHtml(ol);
+                            }
+                            addSystemNote('大纲已更新并保存（见上方「小说大纲」面板）。可继续用对话微调，或说「按这份大纲拆成引导序列」。');
                         } else {
                             addSystemNote('解析到大纲，但当前聊天无法写入元数据，未保存。');
                         }
